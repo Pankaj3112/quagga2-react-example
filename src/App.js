@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Scan from "./components/Scan";
 
-const ShowResults = ({ results }) => {
+const ShowResults = ({ result }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
-    let mostCommon = results.reduce((acc, curr) => {
-      acc[curr] = (acc[curr] || 0) + 1;
-      return acc;
-    }, {});
-
-    mostCommon = Object.keys(mostCommon).reduce((a, b) =>
-      mostCommon[a] > mostCommon[b] ? a : b
-    );
-
     const fetchDetails = async () => {
       const response = await fetch(
-        `https://world.openfoodfacts.org/api/v2/product/${mostCommon}.json`
+        `https://world.openfoodfacts.org/api/v2/product/${result}.json`
       );
       const data = await response.json();
       console.log(data);
@@ -26,20 +18,22 @@ const ShowResults = ({ results }) => {
     };
 
     fetchDetails();
-  }, [results]);
+  }, [result]);
+
+  console.log(data);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <div>
           <p>{data?.status === 0 ? "Product not found" : ""}</p>
           <h3>{data?.product?.product_name}</h3>
           <img
@@ -53,14 +47,14 @@ const ShowResults = ({ results }) => {
 };
 
 const App = () => {
-  const [results, setResults] = useState([]);
+  const [result, setResult] = useState(null);
 
   return (
     <div>
-      {results.length < 5 ? (
-        <Scan setResults={setResults} />
+      {!result ? (
+        <Scan setResult={setResult} />
       ) : (
-        <ShowResults results={results} />
+        <ShowResults result={result} />
       )}
     </div>
   );

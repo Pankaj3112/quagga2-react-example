@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Quagga from "@ericblade/quagga2";
 import Scanner from "../Scanner";
 
-const Scan = ({ setResults }) => {
+const Scan = ({ setResult }) => {
   const [scanning, setScanning] = useState(false); // toggleable state for "should render scanner"
   const [cameras, setCameras] = useState([]); // array of available cameras, as returned by Quagga.CameraAccess.enumerateVideoDevices()
   const [cameraId, setCameraId] = useState(null); // id of the active camera device
@@ -115,7 +115,7 @@ const Scan = ({ setResults }) => {
             onDetected={(result) => {
               //   setResults([...results, result]);
               //   console.log(results);
-              setResults((results) => [...results, result]);
+              setResult(result);
             }}
           />
         ) : null}

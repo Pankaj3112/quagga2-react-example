@@ -63,9 +63,9 @@ const Scanner = ({
             // console.warn('* quagga onProcessed', result);
             if (result.boxes) {
                 drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width')), parseInt(drawingCanvas.getAttribute('height')));
-                result.boxes.filter((box) => box !== result.box).forEach((box) => {
-                    Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'purple', lineWidth: 2 });
-                });
+                // result.boxes.filter((box) => box !== result.box).forEach((box) => {
+                //     Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'purple', lineWidth: 2 });
+                // });
             }
             if (result.box) {
                 Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: 'blue', lineWidth: 2 });
